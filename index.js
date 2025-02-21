@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 import express from "express";
-import { selectUsuarios, selectUsuario, insertUsuario } from "./bd.js";
-
+import { selectUsuarios, selectUsuario, insertUsuario, deleteUsuario } from "./bd.js";
 dotenv.config();
 
      // Requisição do pacote do express
@@ -53,4 +52,19 @@ app.post("/usuario", async (req, res) => {
 
 app.listen(port, () => {            // Um socket para "escutar" as requisições
   console.log(`Serviço escutando na porta:  ${port}`);
+});
+
+
+//index.js
+app.delete("/usuario/:id", async (req, res) => {
+  console.log("Rota DELETE /usuario/# solicitada");
+  try {
+    const usuario = await selectUsuario(req.params.id);
+    if (usuario.length > 0) {
+      await deleteUsuario(req.params.id);
+      res.status(200).json({ message: "Usuário excluido com sucesso!!" });
+    } else res.status(404).json({ message: "Usuário não encontrado!" });
+  } catch (error) {
+    res.status(error.status || 500).json({ message: error.message || "Erro!" });
+  }
 });
