@@ -1,16 +1,13 @@
 import dotenv from "dotenv";
 import express from "express";
-
 import roteadorUsuario from "./routes/usuario.js";
-
-
 dotenv.config();
 
-     // Requisição do pacote do express
+     
 const app = express();              // Instancia o Express
+const port = 5000;                  // Define a 
 
 app.use(express.json());
-const port = 5000;                  // Define a porta
 
 router.get("/", (req, res) => {        // Cria a rota da raiz do projeto
   console.log("Rota GET/ solicitada");
@@ -25,7 +22,7 @@ router.listen(port, () => {            // Um socket para "escutar" as requisiç�
   console.log(`Serviço escutando na porta:  ${port}`);
 });
 
-router.use(roteadorUsuario);
+
 
 
 //src/routes/usuario.js
@@ -41,3 +38,5 @@ router.get("/usuario", async (req, res) => {
   }
 });
 export default router;
+
+app.use(roteadorUsuario);
